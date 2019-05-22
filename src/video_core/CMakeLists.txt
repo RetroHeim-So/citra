@@ -95,3 +95,7 @@ target_link_libraries(video_core PRIVATE glad nihstro-headers)
 if (ARCHITECTURE_x86_64)
     target_link_libraries(video_core PUBLIC xbyak)
 endif()
+
+if (ENABLE_LIBRETRO)
+    target_compile_definitions(video_core PRIVATE HAVE_LIBRETRO)
+endif()

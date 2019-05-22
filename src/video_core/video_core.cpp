@@ -39,6 +39,10 @@ Core::System::ResultStatus Init(Frontend::EmuWindow& emu_window, Memory::MemoryS
 
     OpenGL::GLES = Settings::values.use_gles;
 
+#ifdef HAVE_LIBRETRO
+    // GL context isnt initialized.. will crash.. it happens later
+    return Core::System::ResultStatus::Success;
+#else
     g_renderer = std::make_unique<OpenGL::RendererOpenGL>(emu_window);
     Core::System::ResultStatus result = g_renderer->Init();
 
@@ -47,8 +51,8 @@ Core::System::ResultStatus Init(Frontend::EmuWindow& emu_window, Memory::MemoryS
     } else {
         LOG_DEBUG(Render, "initialized OK");
     }
-
     return result;
+#endif
 }
 
 /// Shutdown the video core

@@ -30,6 +30,7 @@ add_library(audio_core STATIC
     time_stretch.h
 
     $<$<BOOL:${SDL2_FOUND}>:sdl2_sink.cpp sdl2_sink.h>
+    $<$<BOOL:${ENABLE_LIBRETRO}>:libretro_sink.cpp libretro_sink.h>
     $<$<BOOL:${ENABLE_CUBEB}>:cubeb_sink.cpp cubeb_sink.h cubeb_input.cpp cubeb_input.h>
     $<$<BOOL:${FFMPEG_FOUND}>:hle/ffmpeg_decoder.cpp hle/ffmpeg_decoder.h hle/ffmpeg_dl.cpp hle/ffmpeg_dl.h>
     $<$<BOOL:${ENABLE_MF}>:hle/wmf_decoder.cpp hle/wmf_decoder.h hle/wmf_decoder_utils.cpp hle/wmf_decoder_utils.h>
@@ -57,6 +58,11 @@ endif()
 if(SDL2_FOUND)
     target_link_libraries(audio_core PRIVATE SDL2)
     target_compile_definitions(audio_core PRIVATE HAVE_SDL2)
+endif()
+
+if (ENABLE_LIBRETRO)
+    target_link_libraries(audio_core PRIVATE libretro)
+    target_compile_definitions(audio_core PRIVATE HAVE_LIBRETRO)
 endif()
 
 if(ENABLE_CUBEB)

@@ -16,6 +16,11 @@ option(ENABLE_QT "Enable the Qt frontend" ON)
 option(ENABLE_QT_TRANSLATION "Enable translations for the Qt frontend" OFF)
 CMAKE_DEPENDENT_OPTION(CITRA_USE_BUNDLED_QT "Download bundled Qt binaries" ON "ENABLE_QT;MSVC" OFF)
 
+option(ENABLE_LIBRETRO "Enable the LibRetro frontend" ON)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+
+
 option(ENABLE_WEB_SERVICE "Enable web services (telemetry, etc.)" ON)
 
 option(ENABLE_CUBEB "Enables the cubeb audio backend" ON)
